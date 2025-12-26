@@ -1,0 +1,53 @@
+# Android build outputs
+*.apk
+*.aab
+*.apks
+*.ap_
+
+# Generated files
+bin/
+gen/
+out/
+build/
+*/build/
+
+# Gradle
+.gradle/
+gradle-app.setting
+!gradle-wrapper.jar
+
+# Local configuration
+local.properties
+/local.properties
+user.properties
+
+# Logs
+*.log
+
+# IDE files - Android Studio / IntelliJ
+.idea/
+*.iml
+
+# Eclipse
+.project
+.classpath
+.settings/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Kotlin / Java
+*.class
+*.dex
+
+# NDK / CMake
+.cxx/
+externalNativeBuild/
+
+# Security & Keystore files
+*.jks
+*.keystore
+
+# Firebase
+google-services.json
