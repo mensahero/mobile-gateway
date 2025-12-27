@@ -6,18 +6,19 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Http
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import mensahero.mobile.gateway.data.local.model.SetupServerData
 import mensahero.mobile.gateway.data.local.model.SetupUserData
 
 @Composable
-fun ProfileSetupStepScreen(
-    userData: SetupUserData,
-    onNameChange: (String) -> Unit,
-    onEmailChange: (String) -> Unit
+fun ServerSetupStepScreen(
+    serverData: SetupServerData,
+    onServerChange: (String) -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -26,31 +27,16 @@ fun ProfileSetupStepScreen(
             .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.Center
     ) {
-        Text(
-            text = "Set Up Your Profile",
-            style = MaterialTheme.typography.headlineMedium,
-            color = MaterialTheme.colorScheme.onSurface
-        )
-
-        Spacer(modifier = Modifier.height(8.dp))
-
-        Text(
-            text = "Tell us a bit about yourself",
-            style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.onSurfaceVariant
-        )
-
-        Spacer(modifier = Modifier.height(32.dp))
 
         OutlinedTextField(
-            value = userData.name,
-            onValueChange = onNameChange,
-            label = { Text("Full Name") },
-            placeholder = { Text("Enter your name") },
+            value = serverData.server,
+            onValueChange = onServerChange,
+            label = { Text("Server") },
+            placeholder = { Text("Enter your server/host address") },
             leadingIcon = {
                 Icon(
-                    imageVector = Icons.Default.Person,
-                    contentDescription = "Name"
+                    imageVector = Icons.Default.Http,
+                    contentDescription = "Server"
                 )
             },
             modifier = Modifier.fillMaxWidth(),
@@ -61,26 +47,6 @@ fun ProfileSetupStepScreen(
             )
         )
 
-        Spacer(modifier = Modifier.height(16.dp))
-
-        OutlinedTextField(
-            value = userData.email,
-            onValueChange = onEmailChange,
-            label = { Text("Email Address") },
-            placeholder = { Text("Enter your email") },
-            leadingIcon = {
-                Icon(
-                    imageVector = Icons.Default.Email,
-                    contentDescription = "Email"
-                )
-            },
-            modifier = Modifier.fillMaxWidth(),
-            singleLine = true,
-            colors = OutlinedTextFieldDefaults.colors(
-                focusedBorderColor = MaterialTheme.colorScheme.primary,
-                unfocusedBorderColor = MaterialTheme.colorScheme.outline
-            )
-        )
 
         Spacer(modifier = Modifier.height(16.dp))
 
@@ -94,13 +60,13 @@ fun ProfileSetupStepScreen(
                 modifier = Modifier.padding(12.dp)
             ) {
                 Icon(
-                    imageVector = androidx.compose.material.icons.Icons.Default.Info,
+                    imageVector = Icons.Default.Info,
                     contentDescription = null,
                     tint = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.padding(end = 8.dp)
                 )
                 Text(
-                    text = "Your information is stored locally and securely on your device.",
+                    text = "Your server address information is stored locally and securely on your device.",
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )

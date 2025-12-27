@@ -91,7 +91,10 @@ fun SetupScreen(
         topBar = {
             TopAppBar(
                 title = {
-                    Text("Initial Setup")
+                    Text(
+                        text = "Setup Mensahero Mobile Gateway",
+                        style = MaterialTheme.typography.titleSmall,
+                    )
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.primaryContainer,
@@ -157,6 +160,10 @@ fun SetupScreen(
             ) {
                 when (state.currentStepIndex) {
                     SetupStep.STEP_WELCOME -> WelcomeStepScreen()
+                    SetupStep.STEP_SERVER -> ServerSetupStepScreen(
+                        serverData = state.serverData,
+                        onServerChange = { viewModel.onEvent(SetupEvent.UpdateServer(it)) },
+                    )
                     SetupStep.STEP_PROFILE -> ProfileSetupStepScreen(
                         userData = state.userData,
                         onNameChange = { viewModel.onEvent(SetupEvent.UpdateUserName(it)) },

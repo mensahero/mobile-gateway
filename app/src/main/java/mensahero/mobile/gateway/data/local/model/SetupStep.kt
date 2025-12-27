@@ -11,15 +11,22 @@ data class SetupStep(
 ) {
     companion object {
         const val STEP_WELCOME = 0
-        const val STEP_PROFILE = 1
-        const val STEP_PREFERENCES = 2
-        const val STEP_COMPLETE = 3
+
+        const val STEP_SERVER = 1
+        const val STEP_PROFILE = 2
+        const val STEP_PREFERENCES = 3
+        const val STEP_COMPLETE = 4
 
         fun getDefaultSteps(): List<SetupStep> = listOf(
             SetupStep(
                 id = STEP_WELCOME,
                 title = "Welcome",
                 description = "Welcome to the app"
+            ),
+            SetupStep(
+                id = STEP_SERVER,
+                title = "Server Setup",
+                description = "Set up your connection to server"
             ),
             SetupStep(
                 id = STEP_PROFILE,
@@ -57,3 +64,7 @@ data class SetupUserData(
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
 }
+
+data class SetupServerData(
+    val server: String = "",
+)

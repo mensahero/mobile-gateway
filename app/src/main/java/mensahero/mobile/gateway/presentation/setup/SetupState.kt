@@ -1,5 +1,6 @@
 package mensahero.mobile.gateway.presentation.setup
 
+import mensahero.mobile.gateway.data.local.model.SetupServerData
 import mensahero.mobile.gateway.data.local.model.SetupStep
 import mensahero.mobile.gateway.data.local.model.SetupUserData
 
@@ -7,6 +8,7 @@ data class SetupState(
     val currentStepIndex: Int = 0,
     val steps: List<SetupStep> = SetupStep.getDefaultSteps(),
     val userData: SetupUserData = SetupUserData(),
+    val serverData: SetupServerData = SetupServerData(),
     val isLoading: Boolean = false,
     val error: String? = null,
     val isSetupComplete: Boolean = false,

@@ -9,6 +9,8 @@ sealed class SetupEvent {
     // User data updates
     data class UpdateUserName(val name: String) : SetupEvent()
     data class UpdateUserEmail(val email: String) : SetupEvent()
+
+    data class UpdateServer(val  server: String) : SetupEvent()
     data class UpdateNotificationEnabled(val enabled: Boolean) : SetupEvent()
     data class UpdateDarkModeEnabled(val enabled: Boolean) : SetupEvent()
 

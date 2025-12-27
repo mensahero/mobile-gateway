@@ -33,6 +33,7 @@ class SetupViewModel @Inject constructor(
             is SetupEvent.PreviousStep -> moveToPreviousStep()
             is SetupEvent.JumpToStep -> jumpToStep(event.index)
             is SetupEvent.CompleteSetup -> completeSetup()
+            is SetupEvent.UpdateServer -> updateServer(event.server)
             is SetupEvent.UpdateUserName -> updateUserName(event.name)
             is SetupEvent.UpdateUserEmail -> updateUserEmail(event.email)
             is SetupEvent.UpdateNotificationEnabled -> updateNotificationEnabled(event.enabled)
@@ -133,6 +134,13 @@ class SetupViewModel @Inject constructor(
             SetupStep.STEP_COMPLETE -> true
             else -> false
         }
+    }
+
+    private fun updateServer(server: String) {
+        _state.update { currentState -> currentState.copy(
+            serverData =  currentState.serverData.copy(server = server),
+            error = null
+        ) }
     }
 
     private fun updateUserName(name: String) {
