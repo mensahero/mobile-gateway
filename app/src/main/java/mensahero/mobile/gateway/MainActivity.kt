@@ -8,40 +8,29 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import dagger.hilt.android.AndroidEntryPoint
 import mensahero.mobile.gateway.ui.theme.MensaheroMobileGatewayTheme
+import mensahero.mobile.gateway.utils.Preferences
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    private val preferences by lazy { getSharedPreferences("app_prefs", MODE_PRIVATE) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
+        // Check setup status
+        val isSetupDone = preferences.getBoolean(Preferences.KEY_INITIAL_SETUP_DONE, false)
+
         setContent {
             MensaheroMobileGatewayTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
+                    Text(text = "Hello World!", modifier = Modifier.padding(innerPadding))
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    MensaheroMobileGatewayTheme {
-        Greeting("Android")
     }
 }
