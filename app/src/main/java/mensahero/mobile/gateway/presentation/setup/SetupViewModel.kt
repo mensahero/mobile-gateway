@@ -3,13 +3,13 @@ package mensahero.mobile.gateway.presentation.setup
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import mensahero.mobile.gateway.data.local.model.SetupStep
-import mensahero.mobile.gateway.domain.usecase.CompleteSetupUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import mensahero.mobile.gateway.data.local.model.SetupStep
+import mensahero.mobile.gateway.domain.usecase.CompleteSetupUseCase
 import javax.inject.Inject
 
 /**
