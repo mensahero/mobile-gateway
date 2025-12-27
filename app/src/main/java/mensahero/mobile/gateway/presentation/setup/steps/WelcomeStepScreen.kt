@@ -61,7 +61,7 @@ fun WelcomeStepScreen() {
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 BulletPoint("Set up your server connection")
-                BulletPoint("Connect to the server")
+                BulletPoint("Set up your account")
                 BulletPoint("Configure your preferences")
                 BulletPoint("You're ready to go!")
             }

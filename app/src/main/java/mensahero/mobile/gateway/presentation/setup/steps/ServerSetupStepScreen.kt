@@ -1,21 +1,26 @@
 package mensahero.mobile.gateway.presentation.setup.steps
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Http
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.composables.icons.lucide.Lucide
+import com.composables.icons.lucide.PlugZap
+import com.composables.icons.lucide.Server
 import mensahero.mobile.gateway.data.local.model.SetupServerData
 
 @Composable
 fun ServerSetupStepScreen(
     serverData: SetupServerData,
     onServerChange: (String) -> Unit,
+    onWebsocketServerChange: (String) -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -26,15 +31,12 @@ fun ServerSetupStepScreen(
     ) {
 
         OutlinedTextField(
-            value = serverData.server,
+            value = serverData.apiServer,
             onValueChange = onServerChange,
-            label = { Text("Server") },
-            placeholder = { Text("Enter your server/host address") },
+            label = { Text("API Server") },
+            placeholder = { Text("API server address", fontSize = 10.sp) },
             leadingIcon = {
-                Icon(
-                    imageVector = Icons.Default.Http,
-                    contentDescription = "Server"
-                )
+                Image(Lucide.Server, contentDescription = null)
             },
             modifier = Modifier.fillMaxWidth(),
             singleLine = true,
@@ -44,6 +46,24 @@ fun ServerSetupStepScreen(
             )
         )
 
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        OutlinedTextField(
+            value = serverData.websocketServer,
+            onValueChange = onWebsocketServerChange,
+            label = { Text("Websocket Server") },
+            placeholder = { Text("Websocket server address", fontSize = 10.sp) },
+            leadingIcon = {
+                Image(Lucide.PlugZap, contentDescription = null)
+            },
+            modifier = Modifier.fillMaxWidth(),
+            singleLine = true,
+            colors = OutlinedTextFieldDefaults.colors(
+                focusedBorderColor = MaterialTheme.colorScheme.primary,
+                unfocusedBorderColor = MaterialTheme.colorScheme.outline
+            )
+        )
 
         Spacer(modifier = Modifier.height(16.dp))
 

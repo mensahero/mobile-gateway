@@ -33,7 +33,8 @@ class SetupViewModel @Inject constructor(
             is SetupEvent.PreviousStep -> moveToPreviousStep()
             is SetupEvent.JumpToStep -> jumpToStep(event.index)
             is SetupEvent.CompleteSetup -> completeSetup()
-            is SetupEvent.UpdateServer -> updateServer(event.server)
+            is SetupEvent.UpdateApiServer -> updateApiServer(event.server)
+            is SetupEvent.UpdateWebsocketServer -> updateWebsocketServer(event.server)
             is SetupEvent.UpdateUserName -> updateUserName(event.name)
             is SetupEvent.UpdateUserEmail -> updateUserEmail(event.email)
             is SetupEvent.UpdateNotificationEnabled -> updateNotificationEnabled(event.enabled)
@@ -49,26 +50,26 @@ class SetupViewModel @Inject constructor(
                 return@update currentState.copy(
                     error = "Please complete all required fields"
                 )
-            }
+            } else {
+                val nextIndex = (currentState.currentStepIndex + 1)
+                    .coerceAtMost(currentState.steps.size - 1)
 
-            val nextIndex = (currentState.currentStepIndex + 1)
-                .coerceAtMost(currentState.steps.size - 1)
-
-            val updatedSteps = currentState.steps.mapIndexed { index, step ->
-                if (index == currentState.currentStepIndex) {
-                    step.copy(isComplete = true)
-                } else {
-                    step
+                val updatedSteps = currentState.steps.mapIndexed { index, step ->
+                    if (index == currentState.currentStepIndex) {
+                        step.copy(isComplete = true)
+                    } else {
+                        step
+                    }
                 }
-            }
 
-            currentState.copy(
-                currentStepIndex = nextIndex,
-                steps = updatedSteps,
-                error = null,
-                canNavigateBack = nextIndex > 0,
-                canNavigateNext = nextIndex < currentState.steps.size - 1
-            )
+                currentState.copy(
+                    currentStepIndex = nextIndex,
+                    steps = updatedSteps,
+                    error = null,
+                    canNavigateBack = nextIndex > 0,
+                    canNavigateNext = nextIndex < currentState.steps.size - 1
+                )
+            }
         }
     }
 
@@ -129,6 +130,7 @@ class SetupViewModel @Inject constructor(
     private fun validateCurrentStep(state: SetupState): Boolean {
         return when (state.currentStepIndex) {
             SetupStep.STEP_WELCOME -> true
+            SetupStep.STEP_SERVER -> state.serverData.isApiServerValid() && state.serverData.isWebsocketValid()
             SetupStep.STEP_PROFILE -> state.userData.isProfileValid()
             SetupStep.STEP_PREFERENCES -> true
             SetupStep.STEP_COMPLETE -> true
@@ -136,9 +138,18 @@ class SetupViewModel @Inject constructor(
         }
     }
 
-    private fun updateServer(server: String) {
+    private fun updateApiServer(server: String) {
         _state.update { currentState -> currentState.copy(
-            serverData =  currentState.serverData.copy(server = server),
+            serverData = currentState.serverData.copy(apiServer = server),
+            error = null
+        )
+        }
+    }
+
+    private fun updateWebsocketServer(server: String) {
+        _state.update { currentState ->
+            currentState.copy(
+                serverData = currentState.serverData.copy(websocketServer = server),
             error = null
         ) }
     }

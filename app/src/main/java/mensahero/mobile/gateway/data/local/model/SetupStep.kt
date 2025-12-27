@@ -1,13 +1,12 @@
 package mensahero.mobile.gateway.data.local.model
 
+import java.net.URI
+
 /**
  * Represents a single step in the setup process
  */
 data class SetupStep(
-    val id: Int,
-    val title: String,
-    val description: String = "",
-    val isComplete: Boolean = false
+    val id: Int, val title: String, val description: String = "", val isComplete: Boolean = false
 ) {
     companion object {
         const val STEP_WELCOME = 0
@@ -19,29 +18,15 @@ data class SetupStep(
 
         fun getDefaultSteps(): List<SetupStep> = listOf(
             SetupStep(
-                id = STEP_WELCOME,
-                title = "Welcome",
-                description = "Welcome to the app"
-            ),
-            SetupStep(
-                id = STEP_SERVER,
-                title = "Server Setup",
-                description = "Set up your connection to server"
-            ),
-            SetupStep(
-                id = STEP_PROFILE,
-                title = "Profile Setup",
-                description = "Set up your profile"
-            ),
-            SetupStep(
-                id = STEP_PREFERENCES,
-                title = "Preferences",
-                description = "Configure your preferences"
-            ),
-            SetupStep(
-                id = STEP_COMPLETE,
-                title = "Complete",
-                description = "Setup complete"
+                id = STEP_WELCOME, title = "Welcome", description = "Welcome to the app"
+            ), SetupStep(
+                id = STEP_SERVER, title = "Server Setup", description = "Set up your connection to server"
+            ), SetupStep(
+                id = STEP_PROFILE, title = "Profile Setup", description = "Set up your profile"
+            ), SetupStep(
+                id = STEP_PREFERENCES, title = "Preferences", description = "Configure your preferences"
+            ), SetupStep(
+                id = STEP_COMPLETE, title = "Complete", description = "Setup complete"
             )
         )
     }
@@ -66,5 +51,42 @@ data class SetupUserData(
 }
 
 data class SetupServerData(
-    val server: String = "",
-)
+    val apiServer: String = "",
+    val websocketServer: String = "",
+) {
+    fun isApiServerValid(): Boolean {
+        val trimmed = apiServer.trim()
+        if (trimmed.isBlank()) return false
+
+        return try {
+            val uri = URI(trimmed)
+            val scheme = uri.scheme?.lowercase()
+            val host = uri.host
+            val port = uri.port
+
+            // Check if scheme is http or https and host is present
+            // Port is optional, but if present should be valid (1-65535)
+            (scheme == "http" || scheme == "https") && !host.isNullOrBlank() && (port == -1 || port in 1..65535)
+        } catch (e: Exception) {
+            false
+        }
+    }
+
+    fun isWebsocketValid(): Boolean {
+        val trimmed = websocketServer.trim()
+        if (trimmed.isBlank()) return false
+
+        return try {
+            val uri = URI(trimmed)
+            val scheme = uri.scheme?.lowercase()
+            val host = uri.host
+            val port = uri.port
+
+            // Check if scheme is ws or wss and host is present
+            // Port is optional, but if present should be valid (1-65535)
+            (scheme == "ws" || scheme == "wss") && !host.isNullOrBlank() && (port == -1 || port in 1..65535)
+        } catch (e: Exception) {
+            false
+        }
+    }
+}
