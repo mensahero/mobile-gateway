@@ -60,6 +60,9 @@ dependencies {
 
     //UI
     implementation("com.isakaro:kwik.ui:1.0.14")
+    //Lucide Icon
+    implementation("com.composables:icons-lucide-android:2.2.1")
+    implementation("com.composables:icons-lucide-cmp:2.2.1")
 
     // ViewModel
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.10.0")
