@@ -29,6 +29,14 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+        <!-- SetupActivity -->
+        <activity
+                android:name=".presentation.setup.SetupActivity"
+                android:exported="false"
+                android:theme="@style/Theme.MensaheroMobileGateway"
+                android:screenOrientation="portrait"
+                />
     </application>
 
 </manifest>
