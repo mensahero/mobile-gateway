@@ -5,6 +5,8 @@ object PreferencesKeys {
     const val KEY_SETUP_COMPLETED = "setup_completed"
     const val KEY_USER_NAME = "user_name"
     const val KEY_USER_EMAIL = "user_email"
+    const val KEY_API_SERVER = "api_server"
+    const val KEY_WEBSOCKET_SERVER = "websocket_server"
     const val KEY_NOTIFICATION_ENABLED = "notification_enabled"
     const val KEY_DARK_MODE_ENABLED = "dark_mode_enabled"
     const val KEY_SETUP_COMPLETION_TIMESTAMP = "setup_completion_timestamp"

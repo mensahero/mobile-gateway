@@ -53,6 +53,27 @@ class PreferencesManager(context: Context) {
         sharedPreferences.getString(PreferencesKeys.KEY_USER_EMAIL, null)
     }
 
+    // Server Data
+    suspend fun saveApiServer(server: String) = withContext(Dispatchers.IO) {
+        sharedPreferences.edit()
+            .putString(PreferencesKeys.KEY_API_SERVER, server)
+            .apply()
+    }
+
+    suspend fun getApiServer(): String? = withContext(Dispatchers.IO) {
+        sharedPreferences.getString(PreferencesKeys.KEY_API_SERVER, null)
+    }
+
+    suspend fun saveWebsocketServer(server: String) = withContext(Dispatchers.IO) {
+        sharedPreferences.edit()
+            .putString(PreferencesKeys.KEY_WEBSOCKET_SERVER, server)
+            .apply()
+    }
+
+    suspend fun getWebsocketServer(): String? = withContext(Dispatchers.IO) {
+        sharedPreferences.getString(PreferencesKeys.KEY_WEBSOCKET_SERVER, null)
+    }
+
     // Preferences
     suspend fun saveNotificationEnabled(enabled: Boolean) = withContext(Dispatchers.IO) {
         sharedPreferences.edit()

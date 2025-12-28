@@ -2,6 +2,7 @@ package mensahero.mobile.gateway.data.repository
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import mensahero.mobile.gateway.data.local.model.SetupServerData
 import mensahero.mobile.gateway.data.local.model.SetupUserData
 import mensahero.mobile.gateway.data.local.preferences.PreferencesManager
 
@@ -23,10 +24,12 @@ class SetupRepository(
     /**
      * Mark setup as completed and save user data
      */
-    suspend fun completeSetup(userData: SetupUserData): Result<Unit> {
+    suspend fun completeSetup(userData: SetupUserData, serverData: SetupServerData): Result<Unit> {
         return try {
             preferencesManager.saveUserName(userData.name)
             preferencesManager.saveUserEmail(userData.email)
+            preferencesManager.saveApiServer(serverData.apiServer)
+            preferencesManager.saveWebsocketServer(serverData.websocketServer)
             preferencesManager.saveNotificationEnabled(userData.notificationsEnabled)
             preferencesManager.saveDarkModeEnabled(userData.darkModeEnabled)
             preferencesManager.setSetupCompleted(true)
@@ -57,6 +60,13 @@ class SetupRepository(
             email = preferencesManager.getUserEmail() ?: "",
             notificationsEnabled = preferencesManager.isNotificationEnabled(),
             darkModeEnabled = preferencesManager.isDarkModeEnabled()
+        )
+    }
+
+    suspend fun getServerData(): SetupServerData {
+        return SetupServerData(
+            apiServer = preferencesManager.getApiServer() ?: "",
+            websocketServer = preferencesManager.getWebsocketServer() ?: "",
         )
     }
 

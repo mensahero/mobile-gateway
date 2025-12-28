@@ -108,7 +108,7 @@ class SetupViewModel @Inject constructor(
         viewModelScope.launch {
             _state.update { it.copy(isLoading = true, error = null) }
 
-            val result = completeSetupUseCase(currentState.userData)
+            val result = completeSetupUseCase(currentState.userData, currentState.serverData)
 
             _state.update { state ->
                 if (result.isSuccess) {
