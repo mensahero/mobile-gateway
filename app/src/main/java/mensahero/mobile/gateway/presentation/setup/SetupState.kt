@@ -11,6 +11,8 @@ data class SetupState(
     val serverData: SetupServerData = SetupServerData(),
     val isLoading: Boolean = false,
     val error: String? = null,
+    val isTestingConnection: Boolean = false,
+    val connectionTestResult: String? = null,
     val isSetupComplete: Boolean = false,
     val canNavigateNext: Boolean = true,
     val canNavigateBack: Boolean = false

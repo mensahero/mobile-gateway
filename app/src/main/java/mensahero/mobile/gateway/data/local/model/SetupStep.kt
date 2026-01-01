@@ -53,7 +53,12 @@ data class SetupUserData(
 data class SetupServerData(
     val apiServer: String = "",
     val websocketServer: String = "",
+    val isConnectionTested: Boolean = false
 ) {
+    fun isValid(): Boolean {
+        return isApiServerValid() && isWebsocketValid() && isConnectionTested
+    }
+
     fun isApiServerValid(): Boolean {
         val trimmed = apiServer.trim()
         if (trimmed.isBlank()) return false
