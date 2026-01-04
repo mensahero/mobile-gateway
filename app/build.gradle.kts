@@ -6,6 +6,9 @@ plugins {
     id("com.google.dagger.hilt.android")
 }
 
+val appReleaseVersionCode: Int = 1
+val appReleaseVersionName: String = "1.0.0"
+
 android {
     namespace = "mensahero.mobile.gateway"
     compileSdk = 36
@@ -14,16 +17,20 @@ android {
         applicationId = "mensahero.mobile.gateway"
         minSdk = 23
         targetSdk = 36
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = appReleaseVersionCode
+        versionName = appReleaseVersionName
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         release {
+            isDebuggable = false
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+        }
+        debug {
+            isDebuggable = true
         }
     }
     compileOptions {
