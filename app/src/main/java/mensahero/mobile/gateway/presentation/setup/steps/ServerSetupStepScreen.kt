@@ -14,6 +14,7 @@ import androidx.compose.ui.unit.sp
 import com.composables.icons.lucide.Lucide
 import com.composables.icons.lucide.PlugZap
 import com.composables.icons.lucide.Server
+import com.isakaro.kwik.ui.button.KwikButton
 import mensahero.mobile.gateway.data.local.model.SetupServerData
 
 @Composable
@@ -63,6 +64,13 @@ fun ServerSetupStepScreen(
                 focusedBorderColor = MaterialTheme.colorScheme.primary,
                 unfocusedBorderColor = MaterialTheme.colorScheme.outline
             )
+        )
+
+        Spacer(modifier = Modifier.height(8.dp))
+        // test connection
+        KwikButton(
+            text= "Test Connection",
+            onClick = {}
         )
 
         Spacer(modifier = Modifier.height(16.dp))

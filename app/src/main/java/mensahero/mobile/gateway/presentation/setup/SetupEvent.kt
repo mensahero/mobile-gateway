@@ -13,6 +13,7 @@ sealed class SetupEvent {
     // Server data updates
     data class UpdateApiServer(val server: String) : SetupEvent()
     data class UpdateWebsocketServer(val server: String) : SetupEvent()
+    data class TestServerConnection(val server: String): SetupEvent()
 
     data class UpdateNotificationEnabled(val enabled: Boolean) : SetupEvent()
     data class UpdateDarkModeEnabled(val enabled: Boolean) : SetupEvent()

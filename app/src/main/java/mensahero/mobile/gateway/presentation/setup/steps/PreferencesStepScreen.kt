@@ -6,6 +6,7 @@ import androidx.compose.material.icons.filled.DarkMode
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material3.*
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -59,8 +60,9 @@ fun PreferencesStepScreen(
                     onCheckedChange = onNotificationChange
                 )
 
-                Divider(
+                HorizontalDivider(
                     modifier = Modifier.padding(vertical = 16.dp),
+                    thickness = DividerDefaults.Thickness,
                     color = MaterialTheme.colorScheme.outline
                 )
 
